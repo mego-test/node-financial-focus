@@ -9,6 +9,7 @@ import { ChartLine, User, Check, Briefcase } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/ConsultationForm";
+import { toast } from "@/hooks/use-toast";
 
 const Index = () => {
   // Add state for the consultation form modal
@@ -161,7 +162,35 @@ const Index = () => {
           </p>
           <Button 
             className="bg-white text-nonode-green hover:bg-gray-100"
-            onClick={handleOpenForm}
+            onClick={() => {
+              // Generate and show a random discount code here
+              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+              let code = 'NONODE';
+              for (let i = 0; i < 6; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+              }
+              
+              toast({
+                title: "Your 30% Discount Code",
+                description: code,
+                action: (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-2" 
+                    onClick={() => {
+                      navigator.clipboard.writeText(code);
+                      toast({
+                        title: "Copied!",
+                        description: "Discount code copied to clipboard",
+                      });
+                    }}
+                  >
+                    Copy Code
+                  </Button>
+                ),
+              });
+            }}
           >
             Claim Your Discount
           </Button>

@@ -1,17 +1,38 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Copy } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import ConsultationForm from "@/components/ConsultationForm";
+import { toast } from "@/hooks/use-toast";
 
 const CTASection = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [discountCode, setDiscountCode] = useState("");
+  const [isDiscountModalOpen, setIsDiscountModalOpen] = useState(false);
 
   const handleOpenForm = () => {
     setIsFormOpen(true);
     setIsSubmitted(false);
+  };
+
+  const generateDiscountCode = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = 'NONODE';
+    for (let i = 0; i < 6; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    setDiscountCode(result);
+    setIsDiscountModalOpen(true);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(discountCode);
+    toast({
+      title: "Code copied!",
+      description: "Discount code copied to clipboard",
+    });
   };
 
   return (
@@ -50,6 +71,27 @@ const CTASection = () => {
           </DialogHeader>
           
           {!isSubmitted && <ConsultationForm onSubmitSuccess={() => setIsSubmitted(true)} />}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDiscountModalOpen} onOpenChange={setIsDiscountModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl text-nonode-blue">Your Discount Code</DialogTitle>
+            <DialogDescription>
+              <p>Use this code during your consultation to receive 30% off all services.</p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="p-4 bg-gray-50 rounded-md flex items-center justify-between mt-2">
+            <span className="font-mono text-lg font-bold text-nonode-blue">{discountCode}</span>
+            <Button variant="outline" size="sm" onClick={copyToClipboard} className="flex items-center gap-2">
+              <Copy size={16} />
+              <span>Copy</span>
+            </Button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            This code is valid for 30 days from today. Present it during your initial consultation.
+          </p>
         </DialogContent>
       </Dialog>
     </section>
