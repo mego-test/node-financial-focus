@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
@@ -7,58 +6,45 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChartLine, User, Check, Briefcase } from "lucide-react";
-
 const Index = () => {
   // Services data
-  const services = [
-    {
-      title: "Bookkeeping",
-      description: "Comprehensive bookkeeping solutions to keep your finances organized and accurate.",
-      icon: "book" as const,
-    },
-    {
-      title: "Payroll",
-      description: "Efficient payroll management ensuring your team gets paid accurately and on time.",
-      icon: "book" as const,
-    },
-    {
-      title: "Business Plans",
-      description: "Strategic business planning to set clear financial goals and achievable milestones.",
-      icon: "book" as const,
-    },
-    {
-      title: "Tax Filing",
-      description: "Expert tax preparation and filing to ensure compliance and minimize liabilities.",
-      icon: "file-text" as const,
-    },
-    {
-      title: "Cashflow Management",
-      description: "Optimize your business cash flow with expert forecasting and management strategies.",
-      icon: "chart-line" as const,
-    },
-  ];
+  const services = [{
+    title: "Bookkeeping",
+    description: "Comprehensive bookkeeping solutions to keep your finances organized and accurate.",
+    icon: "book" as const
+  }, {
+    title: "Payroll",
+    description: "Efficient payroll management ensuring your team gets paid accurately and on time.",
+    icon: "book" as const
+  }, {
+    title: "Business Plans",
+    description: "Strategic business planning to set clear financial goals and achievable milestones.",
+    icon: "book" as const
+  }, {
+    title: "Tax Filing",
+    description: "Expert tax preparation and filing to ensure compliance and minimize liabilities.",
+    icon: "file-text" as const
+  }, {
+    title: "Cashflow Management",
+    description: "Optimize your business cash flow with expert forecasting and management strategies.",
+    icon: "chart-line" as const
+  }];
 
   // Testimonials data
-  const testimonials = [
-    {
-      quote: "NoNode completely transformed our financial operations. Their expert insights helped us reduce tax liabilities by 25% while improving our cash flow.",
-      name: "Sarah Johnson",
-      title: "CEO, TechStart Inc.",
-    },
-    {
-      quote: "As a small business owner, I was overwhelmed by financial management. NoNode provided tailored solutions that simplified everything.",
-      name: "Michael Rodriguez",
-      title: "Owner, Rodriguez Retail",
-    },
-    {
-      quote: "The team at NoNode delivers reliable, accurate service consistently. They're truly partners in our business growth.",
-      name: "Jessica Lee",
-      title: "CFO, Innovate Solutions",
-    },
-  ];
-
-  return (
-    <div className="min-h-screen flex flex-col">
+  const testimonials = [{
+    quote: "NoNode completely transformed our financial operations. Their expert insights helped us reduce tax liabilities by 25% while improving our cash flow.",
+    name: "Sarah Johnson",
+    title: "CEO, TechStart Inc."
+  }, {
+    quote: "As a small business owner, I was overwhelmed by financial management. NoNode provided tailored solutions that simplified everything.",
+    name: "Michael Rodriguez",
+    title: "Owner, Rodriguez Retail"
+  }, {
+    quote: "The team at NoNode delivers reliable, accurate service consistently. They're truly partners in our business growth.",
+    name: "Jessica Lee",
+    title: "CFO, Innovate Solutions"
+  }];
+  return <div className="min-h-screen flex flex-col">
       <Navbar />
       
       {/* Hero Section */}
@@ -78,17 +64,13 @@ const Index = () => {
               <Button className="bg-white text-nonode-blue hover:bg-gray-100 text-lg px-8 py-6 h-auto">
                 Book a Consultation
               </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6 h-auto">
+              <Button variant="outline" className="border-white text-lg px-8 py-6 h-auto bg-gray-900 hover:bg-gray-800 text-zinc-50">
                 Learn More
               </Button>
             </div>
           </div>
           <div className="lg:w-1/2 flex justify-center lg:justify-end">
-            <img 
-              src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=80" 
-              alt="Financial Professional" 
-              className="rounded-lg shadow-2xl max-w-full h-auto"
-            />
+            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=80" alt="Financial Professional" className="rounded-lg shadow-2xl max-w-full h-auto" />
           </div>
         </div>
       </section>
@@ -104,14 +86,7 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-              />
-            ))}
+            {services.map((service, index) => <ServiceCard key={index} title={service.title} description={service.description} icon={service.icon} />)}
           </div>
         </div>
       </section>
@@ -184,14 +159,7 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                quote={testimonial.quote}
-                name={testimonial.name}
-                title={testimonial.title}
-              />
-            ))}
+            {testimonials.map((testimonial, index) => <TestimonialCard key={index} quote={testimonial.quote} name={testimonial.name} title={testimonial.title} />)}
           </div>
         </div>
       </section>
@@ -225,8 +193,6 @@ const Index = () => {
       
       {/* Footer */}
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
