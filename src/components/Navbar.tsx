@@ -3,7 +3,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+type NavbarProps = {
+  handleOpenForm: () => void;
+};
+
+const Navbar = ({ handleOpenForm }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -36,7 +40,10 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:block">
-          <Button className="bg-nonode-blue text-white hover:bg-nonode-light-blue">
+          <Button 
+            className="bg-nonode-blue text-white hover:bg-nonode-light-blue"
+            onClick={handleOpenForm}
+          >
             Book a Consultation
           </Button>
         </div>
@@ -82,7 +89,13 @@ const Navbar = () => {
             >
               Contact
             </a>
-            <Button className="w-full bg-nonode-blue text-white hover:bg-nonode-light-blue mt-2">
+            <Button 
+              className="w-full bg-nonode-blue text-white hover:bg-nonode-light-blue mt-2"
+              onClick={() => {
+                setIsMenuOpen(false);
+                handleOpenForm();
+              }}
+            >
               Book a Consultation
             </Button>
           </div>

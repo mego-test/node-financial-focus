@@ -6,7 +6,21 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChartLine, User, Check, Briefcase } from "lucide-react";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import ConsultationForm from "@/components/ConsultationForm";
+
 const Index = () => {
+  // Add state for the consultation form modal
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // Handler to open the form
+  const handleOpenForm = () => {
+    setIsFormOpen(true);
+    setIsSubmitted(false);
+  };
+  
   // Services data
   const services = [{
     title: "Bookkeeping",
@@ -45,7 +59,7 @@ const Index = () => {
     title: "CFO, Innovate Solutions"
   }];
   return <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar handleOpenForm={handleOpenForm} />
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-nonode-blue to-nonode-dark-blue text-white section-padding">
@@ -61,7 +75,10 @@ const Index = () => {
               We help businesses minimize tax liabilities and maximize profit through strategic financial management.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-white text-nonode-blue hover:bg-gray-100 text-lg px-8 py-6 h-auto">
+              <Button 
+                className="bg-white text-nonode-blue hover:bg-gray-100 text-lg px-8 py-6 h-auto"
+                onClick={handleOpenForm}
+              >
                 Book a Consultation
               </Button>
               <Button variant="outline" className="border-white text-lg px-8 py-6 h-auto bg-gray-900 hover:bg-gray-800 text-zinc-50">
@@ -142,7 +159,10 @@ const Index = () => {
           <p className="text-lg mb-6">
             New clients can enjoy 30% off our comprehensive accounting services. Offer ends soon!
           </p>
-          <Button className="bg-white text-nonode-green hover:bg-gray-100">
+          <Button 
+            className="bg-white text-nonode-green hover:bg-gray-100"
+            onClick={handleOpenForm}
+          >
             Claim Your Discount
           </Button>
         </div>
@@ -188,11 +208,33 @@ const Index = () => {
         </div>
       </section>
       
-      {/* CTA Section */}
+      {/* CTA Section - already has its own modal implementation */}
       <CTASection />
       
       {/* Footer */}
       <Footer />
+      
+      {/* Global Consultation Form Modal */}
+      <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl text-nonode-blue">Book Your Free Consultation</DialogTitle>
+            <DialogDescription>
+              {isSubmitted ? (
+                <div className="py-8 text-center">
+                  <h3 className="text-xl font-semibold text-nonode-blue mb-2">Thank you!</h3>
+                  <p>We'll contact you shortly to discuss how NoNode can help your business grow.</p>
+                </div>
+              ) : (
+                <p>Please fill out the form below and we'll get back to you within 24 hours.</p>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          
+          {!isSubmitted && <ConsultationForm onSubmitSuccess={() => setIsSubmitted(true)} />}
+        </DialogContent>
+      </Dialog>
     </div>;
 };
+
 export default Index;
